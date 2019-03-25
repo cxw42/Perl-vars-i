@@ -1,9 +1,11 @@
-MANIFEST
-LICENSE
-README
-Todo
 Changes
 lib/vars/i.pm
-t/010__vars-i.t
+LICENSE
 Makefile.PL
-META.yml                                 Module meta-data (added by MakeMaker)
+MANIFEST
+MANIFEST.SKIP
+META.yml			Module meta-data (added by MakeMaker)
+README
+README.md
+t/010__vars-i.t
+Todo

@@ -136,7 +136,6 @@ vars::i - Perl pragma to declare and simultaneously initialize global variables.
                                                                     #
     __END__
 
-
 =head1 DESCRIPTION
 
 For whatever reason, I once had to write something like
@@ -159,12 +158,9 @@ Also, I like being able to say
 
 Like with C<use vars;>, there is no need to fully qualify the variable name.
 
-
 =head1 SEE ALSO
 
 See L<vars>, L<perldoc/"our">, L<perlmodlib/Pragmatic Modules>.
-
-=begin FOR LATER ON CPAN 
 
 =head1 AUTHOR
 
@@ -174,8 +170,6 @@ Please use http://rt.cpan.org/ to report bugs (there shouldn't be any ;p).
 
 Just go to http://rt.cpan.org/NoAuth/Bugs.html?Dist=vars-i to see
 a bug list and/or report new ones.
-
-=end FOR LATER ON CPAN 
 
 =head1 LICENSE
 
