@@ -1,8 +1,8 @@
 # I basically took vars.pm, and turned it into vars/i.pm
 
-package vars::i;
+package Acme::CXW::vars::i;
 
-$vars::i::VERSION = '1.01';
+$Acme::CXW::vars::i::VERSION = '1.01';
 
 # yuck
 =for IT DOESN'T WORK nor is it important (try perl -Mstrict -Mwarnings=all -We"use vars q[$a];")
@@ -105,7 +105,7 @@ __END__
 
 =head1 NAME
 
-vars::i - Perl pragma to declare and simultaneously initialize global variables.
+Acme::CXW::vars::i - Perl pragma to declare and simultaneously initialize global variables.
 
 =head1 SYNOPSIS
 
