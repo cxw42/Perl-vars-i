@@ -48,23 +48,16 @@ sub import {
         }
 
 
-        if( my( $ch, $sym ) = $var =~ /^([\$\@\%\*\&])(.+)/ ){
-            if( $sym =~ /\W/ ){
+        if( my( $ch, $sym ) = $var =~ /^([\$\@\%\*\&])(.+)$/ ){
+            if( $sym =~ /\W|(^\d+$)/ ){
                 # time for a more-detailed check-up
                 if( $sym =~ /^\w+[[{].*[]}]$/ ){
                     require Carp;
                     Carp::croak("Can't declare individual elements of hash or array");
                 }
-=for IT DOESN'T WORK nor is it important
-                elsif( warnings::enabled() and length($sym) == 1 and $sym !~ tr/a-zA-Z// ){#$!
+                elsif( $sym =~ /^(\d+|\W|\^[\[\]A-Z\^_\?]|\{\^[a-zA-Z0-9]+\})$/ ){
                     require Carp;
-                    Carp::carp("No need to declare built-in vars");
-                    #warnings::warn("No need to declare built-in vars");
-                }
-=cut
-                elsif( ($^H &= strict::bits('vars')) ){
-                    require Carp;
-                    Carp::croak("'$var' is not a valid variable name under strict vars");
+                    Carp::croak("Refusing to initialize special variable $ch$sym");
                 }
             }
 
@@ -89,11 +82,10 @@ sub import {
             elsif( $ch eq '&' ){
                 *{$sym} = shift @value;
             }
-            else {
-                require Carp;
-                Carp::croak("'$var' is not a valid variable name");
-            }
-        } else {
+            # There is no else, because the regex above guarantees
+            # that $ch has one of the values we tested.
+
+        } else {    # Name didn't match the regex above
             require Carp;
             Carp::croak("'$var' is not a valid variable name");
         }
@@ -117,23 +109,23 @@ Acme::CXW::vars::i - Perl pragma to declare and simultaneously initialize global
     use vars::i '%BORD' => 1 .. 10;
     use vars::i '&VERSION' => sub(){rand 20};
     use vars::i '*SOUTH' => *STDOUT;
-                                                                    #
+
     BEGIN {
         print SOUTH Dumper [
             $VERSION, \@BORG, \%BORD, \&VERSION
         ];
     }
-                                                                    #
-    use vars::i [ # has the same affect as the 5 use statements above
+
+    use vars::i [ # has the same effect as the 5 use statements above
         '$VERSION' => 3.66,
         '@BORG' => [6 .. 6],
         '%BORD' => {1 .. 10},
         '&VERSION' => sub(){rand 20},
         '*SOUTH' => *STDOUT,
     ];
-                                                                    #
+
     print SOUTH Dumper [ $VERSION, \@BORG, \%BORD, \&VERSION ];
-                                                                    #
+
     __END__
 
 =head1 DESCRIPTION
