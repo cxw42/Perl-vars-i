@@ -55,6 +55,8 @@ inc/
 nytprof.out
 pod2htm*.tmp
 pm_to_blib
+*-vars-i-*
+*-vars-i-*.tar.gz
 vars-i-*
 vars-i-*.tar.gz
 *.bak

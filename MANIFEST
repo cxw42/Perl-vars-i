@@ -1,11 +1,10 @@
 Changes
-lib/vars/i.pm
+lib/Acme/CXW/vars/i.pm
 LICENSE
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
-META.yml			Module meta-data (added by MakeMaker)
+META.yml			Module meta-data (added by MakeMaker)
 README
 README.md
 t/010__vars-i.t
-Todo

@@ -8,9 +8,38 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME         => 'Acme::CXW::vars::i',
     VERSION_FROM => 'lib/Acme/CXW/vars/i.pm', # finds \$VERSION
+    ABSTRACT_FROM=> 'lib/Acme/CXW/vars/i.pm',
     AUTHOR       => 'D. H. (PodMaster)',
-    ABSTRACT     => 'Perl pragma to declare and simultaneously initialize global variables.',
     PREREQ_PM    => {
+                     'Carp' => '0',
+                    },
+
+    TEST_REQUIRES=> {
                      'Test::More' => 0,
                     },
+
+    META_MERGE => {
+        'meta-spec' => { version => 2 },
+        'release_status' => 'testing',
+
+        x_contributors => [
+            # Use CPAN emails so MetaCPAN will pick them up.
+            'D.H. <podmaster@cpan.org>',
+            'Christopher White <cxw@cpan.org>',
+        ],
+
+        resources => {
+            bugtracker => {
+                web  => 'https://github.com/cxw42/Perl-vars-i/issues',
+            },
+            repository => {
+                type => 'git',
+                web  => 'https://github.com/cxw42/Perl-vars-i.git',
+                web  => 'https://github.com/cxw42/Perl-vars-i',
+            },
+        },
+
+    }, #META_MERGE
+    dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+    clean => { FILES => 'Perl-vars-i-*' },
 );

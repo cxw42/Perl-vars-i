@@ -2,7 +2,7 @@
 
 package Acme::CXW::vars::i;
 
-$Acme::CXW::vars::i::VERSION = '1.01';
+$Acme::CXW::vars::i::VERSION = '1.02';
 
 # yuck
 =for IT DOESN'T WORK nor is it important (try perl -Mstrict -Mwarnings=all -We"use vars q[$a];")
@@ -37,7 +37,7 @@ sub import {
 
     for my $k( keys %stuff ){
         $var = $k;
-        if( ref $stuff{$k} eq 'ARRAY' ){ 
+        if( ref $stuff{$k} eq 'ARRAY' ){
             @value = @{ $stuff{$k} };
         }
         elsif( ref $stuff{$k} eq 'HASH' ){
@@ -46,7 +46,7 @@ sub import {
         else {
             @value = $stuff{$k};
         }
-    
+
 
         if( my( $ch, $sym ) = $var =~ /^([\$\@\%\*\&])(.+)/ ){
             if( $sym =~ /\W/ ){
@@ -67,7 +67,7 @@ sub import {
                     Carp::croak("'$var' is not a valid variable name under strict vars");
                 }
             }
-    
+
             $sym = "${callpack}::$sym" unless $sym =~ /::/;
 
             if( $ch eq '$' ){
