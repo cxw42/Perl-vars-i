@@ -2,7 +2,7 @@
 
 package Acme::CXW::vars::i;
 
-$Acme::CXW::vars::i::VERSION = '1.02';
+our $VERSION = '1.03'; # TRIAL
 
 # yuck
 =for IT DOESN'T WORK nor is it important (try perl -Mstrict -Mwarnings=all -We"use vars q[$a];")

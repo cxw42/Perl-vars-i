@@ -41,5 +41,5 @@ WriteMakefile(
 
     }, #META_MERGE
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean => { FILES => 'Perl-vars-i-*' },
+    clean => { FILES => 'vars-i-* Acme-CXW-vars-i-*' },
 );
