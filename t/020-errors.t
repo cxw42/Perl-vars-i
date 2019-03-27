@@ -26,4 +26,7 @@ eval_dies_ok q[ use Acme::CXW::vars::i '$!' => 1; ];
 eval_dies_ok q[ use Acme::CXW::vars::i '$^H' => 1; ];
 eval_dies_ok q[ use Acme::CXW::vars::i '${^Foo}' => 1; ];
 
+# Not a variable name
+eval_dies_ok q[ use Acme::CXW::vars::i '$1337!' => 1; ];
+
 done_testing();

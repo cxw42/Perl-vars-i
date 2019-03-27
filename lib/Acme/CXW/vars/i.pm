@@ -26,10 +26,10 @@ sub import {
     my %stuff;
 
     if( not @value ){
-        if(ref $var ){
+        if( ref $var ){
             %stuff = @$var;
         } else {
-            return;
+            return;     # No value given --- no-op; not an error.
         }
     } else {
         %stuff = ( $var, [@value] );
@@ -49,15 +49,20 @@ sub import {
 
 
         if( my( $ch, $sym ) = $var =~ /^([\$\@\%\*\&])(.+)$/ ){
-            if( $sym =~ /\W|(^\d+$)/ ){
-                # time for a more-detailed check-up
+            if( $sym !~ /^(\w+(::|'))+\w+$/ && $sym =~ /\W|(^\d+$)/ ){
+                #    ^^ Skip fully-qualified names  ^^ Check special names
+
+                # A variable name we can't or won't handle
+                require Carp;
+
                 if( $sym =~ /^\w+[[{].*[]}]$/ ){
-                    require Carp;
                     Carp::croak("Can't declare individual elements of hash or array");
                 }
                 elsif( $sym =~ /^(\d+|\W|\^[\[\]A-Z\^_\?]|\{\^[a-zA-Z0-9]+\})$/ ){
-                    require Carp;
                     Carp::croak("Refusing to initialize special variable $ch$sym");
+                }
+                else {
+                    Carp::croak("I can't recognize $ch$sym as a variable name");
                 }
             }
 
@@ -79,7 +84,7 @@ sub import {
                 *{$sym} = \*$sym;
                 (*{$sym}) = shift @value;
             }
-            elsif( $ch eq '&' ){
+            else {   # $ch eq '&'; guaranteed by the regex above.
                 *{$sym} = shift @value;
             }
             # There is no else, because the regex above guarantees
@@ -103,7 +108,7 @@ Acme::CXW::vars::i - Perl pragma to declare and simultaneously initialize global
 
     use Data::Dumper;
     $Data::Dumper::Deparse = 1;
-                                                                    #
+
     use vars::i '$VERSION' => 3.44;
     use vars::i '@BORG' => 6 .. 6;
     use vars::i '%BORD' => 1 .. 10;
@@ -137,7 +142,11 @@ For whatever reason, I once had to write something like
         $VERSION = 3;
     }
 
-and I really didn't like typing that much.
+and I really didn't like typing that much.  With this package, I can say:
+
+    use vars::i '$VERSION' => 3;
+
+and get the same effect.
 
 Also, I like being able to say
 
@@ -149,14 +158,31 @@ Also, I like being able to say
     ];
 
 Like with C<use vars;>, there is no need to fully qualify the variable name.
+However, you may if you wish.
+
+=head1 NOTES
+
+=over
+
+=item *
+
+Specifying a variable but not a value will succeed silently, and will B<not>
+create the variable.  E.g., C<use vars::i '$foo';> is a no-op.
+
+=item *
+
+Trying to create a special variable is fatal.  E.g., C<use vars::i '$@', 1;>
+will die at compile time.
+
+=back
 
 =head1 SEE ALSO
 
 See L<vars>, L<perldoc/"our">, L<perlmodlib/Pragmatic Modules>.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-D.H aka PodMaster
+D.H aka PodMaster, plus code from CXW.
 
 Please use http://rt.cpan.org/ to report bugs (there shouldn't be any ;p).
 
@@ -165,7 +191,8 @@ a bug list and/or report new ones.
 
 =head1 LICENSE
 
-Copyright (c) 2003 by D.H. aka PodMaster. All rights reserved.
+Copyright (c) 2003 by D.H. aka PodMaster.  Portions copyright (c) 2019 by Chris
+White.  All rights reserved.
 
 This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself. If you don't know what this means,

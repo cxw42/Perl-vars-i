@@ -8,3 +8,5 @@ META.yml			Module meta-data (added by MakeMaker)
 README
 README.md
 t/010__vars-i.t
+t/020-errors.t
+t/030-oddball.t
