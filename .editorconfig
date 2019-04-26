@@ -9,6 +9,12 @@ end_of_line = CRLF
 [*.{bat,vbs,ps1}]
 end_of_line = CRLF
 
+[{Changes,.editorconfig}]
+end_of_line = LF
+# For Changes, this is a Minilla requirement ---
+# https://github.com/tokuhirom/Minilla/issues/259 .
+# For .editorconfig, it's just for consistency with my other projects :) .
+
 [Makefile]
 indent_style = tab
 

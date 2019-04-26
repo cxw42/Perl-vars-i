@@ -1,8 +1,6 @@
 Revision history for Perl extension Acme-CXW-vars-i
 
 {{$NEXT}}
-
-1.04 2019-04-26T17:53:36Z
     - Switched to Minilla for maintenance
 
 1.03    2019-03-27

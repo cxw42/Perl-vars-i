@@ -5,5 +5,7 @@ authority="cpan:CXW"
 module_maker="ExtUtilsMakeMaker"
 static_install = "auto"
 
-[release]
-do_not_upload_to_cpan=true
+tag_format="v%v"
+
+#[release]
+#do_not_upload_to_cpan=true
