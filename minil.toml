@@ -1,0 +1,7 @@
+name = "Acme-CXW-vars-i"
+# badges = ["travis-ci.com"]
+authority="cpan:CXW"
+
+module_maker="ExtUtilsMakeMaker"
+static_install = "auto"
+
