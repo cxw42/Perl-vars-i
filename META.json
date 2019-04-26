@@ -1,7 +1,7 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Perl pragma to declare and simultaneously initialize global variables.",
    "author" : [
-      "Chris White <chrisw@leehayes.com>"
+      "D.H aka PodMaster, plus code from CXW.\r"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.1.4, CPAN::Meta::Converter version 2.150010",
@@ -26,6 +26,11 @@
       ]
    },
    "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
       "configure" : {
          "requires" : {
             "ExtUtils::MakeMaker" : "6.64"
@@ -42,18 +47,22 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008001"
+            "Carp" : "0",
+            "perl" : "5.005005"
          }
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0.98"
+            "Test::More" : "0"
          }
       }
    },
    "release_status" : "unstable",
-   "version" : "0.01",
+   "version" : "1.03",
    "x_authority" : "cpan:CXW",
+   "x_contributors" : [
+      "Chris White <chrisw@leehayes.com>"
+   ],
    "x_serialization_backend" : "JSON::PP version 2.27400_02",
    "x_static_install" : 1
 }

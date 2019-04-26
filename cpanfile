@@ -1,6 +1,11 @@
-requires 'perl', '5.008001';
+requires 'perl', '5.005005';
 
-on 'test' => sub {
-    requires 'Test::More', '0.98';
+requires 'Carp';
+
+on build => sub {
+    requires 'ExtUtils::MakeMaker';
 };
 
+on test => sub {
+    requires 'Test::More';
+};

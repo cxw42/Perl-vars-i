@@ -11,20 +11,23 @@ use ExtUtils::MakeMaker 6.64;
 my %WriteMakefileArgs = (
     NAME     => 'Acme::CXW::vars::i',
     DISTNAME => 'Acme-CXW-vars-i',
-    VERSION  => '0.01',
+    VERSION  => '1.03',
     EXE_FILES => [glob('script/*'), glob('bin/*')],
     CONFIGURE_REQUIRES => {
   "ExtUtils::MakeMaker" => "6.64"
 }
 ,
-    BUILD_REQUIRES     => {}
+    BUILD_REQUIRES     => {
+  "ExtUtils::MakeMaker" => 0
+}
 ,
     TEST_REQUIRES      => {
-  "Test::More" => "0.98"
+  "Test::More" => 0
 }
 ,
     PREREQ_PM          => {
-  "perl" => "5.008001"
+  "Carp" => 0,
+  "perl" => "5.005005"
 }
 ,
 );
