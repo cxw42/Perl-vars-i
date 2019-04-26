@@ -1,7 +1,7 @@
 # I basically took vars.pm, and turned it into vars/i.pm
 
 package Acme::CXW::vars::i;
-use 5.005005;
+use 5.006;
 
 our $VERSION = '1.03'; # TRIAL
 
@@ -180,6 +180,11 @@ will die at compile time.
 =head1 SEE ALSO
 
 See L<vars>, L<perldoc/"our">, L<perlmodlib/Pragmatic Modules>.
+
+=head1 MINIMUM PERL VERSION
+
+This version supports Perl 5.6+.  If you are running an earlier Perl,
+use version 1.01 of this module (PODMASTER/vars-i-1.01).
 
 =head1 AUTHORS
 

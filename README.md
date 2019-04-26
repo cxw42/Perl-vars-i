@@ -69,6 +69,11 @@ will die at compile time.
 
 See [vars](https://metacpan.org/pod/vars), ["our" in perldoc](https://metacpan.org/pod/perldoc#our), ["Pragmatic Modules" in perlmodlib](https://metacpan.org/pod/perlmodlib#Pragmatic-Modules).
 
+# MINIMUM PERL VERSION
+
+This version supports Perl 5.6+.  If you are running an earlier Perl,
+use version 1.01 of this module (PODMASTER/vars-i-1.01).
+
 # AUTHORS
 
 D.H aka PodMaster, plus code from CXW.

@@ -27,7 +27,7 @@ my %WriteMakefileArgs = (
 ,
     PREREQ_PM          => {
   "Carp" => 0,
-  "perl" => "5.005005"
+  "perl" => "5.006"
 }
 ,
 );

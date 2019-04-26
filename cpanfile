@@ -1,4 +1,4 @@
-requires 'perl', '5.005005';
+requires 'perl', '5.006';
 
 requires 'Carp';
 

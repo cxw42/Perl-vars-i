@@ -48,7 +48,7 @@
       "runtime" : {
          "requires" : {
             "Carp" : "0",
-            "perl" : "5.005005"
+            "perl" : "5.006"
          }
       },
       "test" : {
@@ -58,10 +58,22 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/cxw42/Perl-vars-i/issues"
+      },
+      "homepage" : "https://github.com/cxw42/Perl-vars-i",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/cxw42/Perl-vars-i.git",
+         "web" : "https://github.com/cxw42/Perl-vars-i"
+      }
+   },
    "version" : "1.03",
    "x_authority" : "cpan:CXW",
    "x_contributors" : [
-      "Chris White <chrisw@leehayes.com>"
+      "Christopher White <cxw@cpan.org>",
+      "D.H <podmaster@cpan.org>"
    ],
    "x_serialization_backend" : "JSON::PP version 2.27400_02",
    "x_static_install" : 1
