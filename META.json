@@ -69,7 +69,7 @@
          "web" : "https://github.com/cxw42/Perl-vars-i"
       }
    },
-   "version" : "1.03",
+   "version" : "1.04",
    "x_authority" : "cpan:CXW",
    "x_contributors" : [
       "Christopher White <cxw@cpan.org>",
