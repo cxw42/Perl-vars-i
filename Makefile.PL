@@ -9,9 +9,9 @@ use strict;
 use ExtUtils::MakeMaker 6.64;
 
 my %WriteMakefileArgs = (
-    NAME     => 'Acme::CXW::vars::i',
-    DISTNAME => 'Acme-CXW-vars-i',
-    VERSION  => '1.04',
+    NAME     => 'vars::i',
+    DISTNAME => 'vars-i',
+    VERSION  => '1.05',
     EXE_FILES => [glob('script/*'), glob('bin/*')],
     CONFIGURE_REQUIRES => {
   "ExtUtils::MakeMaker" => "6.64"

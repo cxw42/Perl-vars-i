@@ -5,7 +5,7 @@ package MY::Oddball;
 
 use Test::More;
 
-use Acme::CXW::vars::i;     # Fatal if we can't load
+use vars::i;     # Fatal if we can't load
 
 test_no_value_provided();
 test_arrayref_value();
@@ -24,8 +24,8 @@ sub eval_dies_ok {
 sub test_no_value_provided{
     eval q[{
         package MY::Test1;
-        use Acme::CXW::vars::i '$VAR';     # no value
-        use Acme::CXW::vars::i '$WITH_VALUE', 42;
+        use vars::i '$VAR';     # no value
+        use vars::i '$WITH_VALUE', 42;
     }];
     ok(!$@, 'Compiles `use` without value OK ');
 
@@ -47,7 +47,7 @@ sub test_no_value_provided{
 sub test_arrayref_value {
     eval q[{
         package MY::Test2;
-        use Acme::CXW::vars::i [
+        use vars::i [
             '@VAR' => [1..3],
         ];
     }];
@@ -62,7 +62,7 @@ sub test_arrayref_value {
 sub test_hashref_value {
     eval q[{
         package MY::Test3;
-        use Acme::CXW::vars::i [
+        use vars::i [
             '%VAR' => {1..4},
         ];
     }];
@@ -76,7 +76,7 @@ sub test_hashref_value {
 sub test_inject_var {
     eval q[{
         package MY::Test4;
-        use Acme::CXW::vars::i '$MY::Oddball::InjectedVar' => 42;
+        use vars::i '$MY::Oddball::InjectedVar' => 42;
     }];
     ok(!$@, 'Created InjectedVar OK');
 

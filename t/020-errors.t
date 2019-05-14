@@ -3,7 +3,7 @@
 # t/020-errors.t - tests of invalid input
 use Test::More;
 
-use Acme::CXW::vars::i;     # Fatal if we can't load
+use vars::i;     # Fatal if we can't load
 
 # Use string eval + `use strict` to trap undefined variables
 sub eval_dies_ok {
@@ -12,21 +12,21 @@ sub eval_dies_ok {
 }
 
 # Bad sigils
-eval_dies_ok q[ use Acme::CXW::vars::i '~BADSIGIL' => 1; ];
-eval_dies_ok q[ use Acme::CXW::vars::i 'NOSIGIL' => 1; ];
+eval_dies_ok q[ use vars::i '~BADSIGIL' => 1; ];
+eval_dies_ok q[ use vars::i 'NOSIGIL' => 1; ];
 
 # Elements of aggregates
-eval_dies_ok q[ use Acme::CXW::vars::i '$array[0]' => 1; ];
-eval_dies_ok q[ use Acme::CXW::vars::i '$hash{0}' => 1; ];
+eval_dies_ok q[ use vars::i '$array[0]' => 1; ];
+eval_dies_ok q[ use vars::i '$hash{0}' => 1; ];
 
 # Special variables
-eval_dies_ok q[ use Acme::CXW::vars::i '$0' => 1; ];
-eval_dies_ok q[ use Acme::CXW::vars::i '$1' => 1; ];
-eval_dies_ok q[ use Acme::CXW::vars::i '$!' => 1; ];
-eval_dies_ok q[ use Acme::CXW::vars::i '$^H' => 1; ];
-eval_dies_ok q[ use Acme::CXW::vars::i '${^Foo}' => 1; ];
+eval_dies_ok q[ use vars::i '$0' => 1; ];
+eval_dies_ok q[ use vars::i '$1' => 1; ];
+eval_dies_ok q[ use vars::i '$!' => 1; ];
+eval_dies_ok q[ use vars::i '$^H' => 1; ];
+eval_dies_ok q[ use vars::i '${^Foo}' => 1; ];
 
 # Not a variable name
-eval_dies_ok q[ use Acme::CXW::vars::i '$1337!' => 1; ];
+eval_dies_ok q[ use vars::i '$1337!' => 1; ];
 
 done_testing();
