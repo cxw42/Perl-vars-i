@@ -1,5 +1,5 @@
 name = "vars-i"
-# badges = ["travis-ci.com"]
+badges = ["metacpan"]
 
 module_maker = "ExtUtilsMakeMaker"
 static_install = "auto"

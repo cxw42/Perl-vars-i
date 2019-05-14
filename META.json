@@ -1,7 +1,7 @@
 {
    "abstract" : "Perl pragma to declare and simultaneously initialize global variables.",
    "author" : [
-      "D.H aka PodMaster, plus code from CXW.\r\r"
+      "D.H aka PodMaster, plus code from CXW."
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.1.4, CPAN::Meta::Converter version 2.150010",
