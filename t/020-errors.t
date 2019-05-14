@@ -28,5 +28,6 @@ eval_dies_ok q[ use vars::i '${^Foo}' => 1; ];
 
 # Not a variable name
 eval_dies_ok q[ use vars::i '$1337!' => 1; ];
+eval_dies_ok q[ use vars::i '$some random thing' => 1; ];
 
 done_testing();
