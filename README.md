@@ -30,8 +30,6 @@ vars::i - Perl pragma to declare and simultaneously initialize global variables.
 
     print SOUTH Dumper [ $VERSION, \@BORG, \%BORD, \&VERSION ];
 
-    __END__
-
 # DESCRIPTION
 
 For whatever reason, I once had to write something like
@@ -40,6 +38,11 @@ For whatever reason, I once had to write something like
         use vars '$VERSION';
         $VERSION = 3;
     }
+
+or
+
+    our $VERSION;
+    BEGIN { $VERSION = 3; }
 
 and I really didn't like typing that much.  With this package, I can say:
 
@@ -75,14 +78,35 @@ See [vars](https://metacpan.org/pod/vars), ["our" in perldoc](https://metacpan.o
 This version supports Perl 5.6+.  If you are running an earlier Perl,
 use version 1.01 of this module (PODMASTER/vars-i-1.01).
 
+# DEVELOPMENT
+
+This module uses [Minilla](https://metacpan.org/pod/Minilla) for release management.  When developing, you
+can use normal `prove -l` for testing based on the files in `lib/`.  Before
+submitting a pull request, please:
+
+- make sure all tests pass under `minil test`
+- update the `Changes` file
+- update the `.mailmap` file to list your PAUSE user ID if you have one, and
+if your git commits are not under your `@cpan.org` email.  That way you will
+be properly listed as a contributor in MetaCPAN.
+
 # AUTHORS
 
-D.H aka PodMaster, plus code from CXW.
+D.H. <podmaster@cpan.org>
 
-Please use http://rt.cpan.org/ to report bugs (there shouldn't be any ;p).
+Christopher White <cxw@cpan.org>
 
-Just go to http://rt.cpan.org/NoAuth/Bugs.html?Dist=vars-i to see
-a bug list and/or report new ones.
+## Thanks
+
+Thanks to everyone who has worked on [vars](https://metacpan.org/pod/vars), which served as the basis for
+this module.
+
+# SUPPORT
+
+Please report any bugs at [https://github.com/cxw42/Perl-vars-i/issues](https://github.com/cxw42/Perl-vars-i/issues).
+
+You can also see the old bugtracker at
+[http://rt.cpan.org/NoAuth/Bugs.html?Dist=vars-i](http://rt.cpan.org/NoAuth/Bugs.html?Dist=vars-i) for older bugs.
 
 # LICENSE
 
