@@ -1,7 +1,7 @@
 package vars::i;
 use 5.006;
 
-our $VERSION = '1.06'; # TRIAL
+our $VERSION = '1.07'; # TRIAL
 
 use strict qw(vars subs);
 use warnings;
@@ -160,6 +160,13 @@ However, you may if you wish.
 Specifying a variable but not a value will succeed silently, and will B<not>
 create the variable.  E.g., C<use vars::i '$foo';> is a no-op.
 
+Now, you might expect that C<< use vars::i '$foo'; >> would behave the same
+way as C<< use vars '$foo'; >>.  That would not be an unreasonable expectation.
+However, C<< use vars::i qw($foo $bar); >> has a very different
+effect than does C<< use vars qw($foo $bar); >>!  In order to avoid
+subtle errors in the two-parameter case, C<vars::i> also rejects the
+one-parameter case.
+
 =item *
 
 Trying to create a special variable is fatal.  E.g., C<use vars::i '$@', 1;>
@@ -174,7 +181,8 @@ See L<vars>, L<perldoc/"our">, L<perlmodlib/Pragmatic Modules>.
 =head1 MINIMUM PERL VERSION
 
 This version supports Perl 5.6+.  If you are running an earlier Perl,
-use version 1.01 of this module (PODMASTER/vars-i-1.01).
+use version 1.01 of this module
+(L<PODMASTER/vars-i-1.01|https://metacpan.org/pod/release/PODMASTER/vars-i-1.01/lib/vars/i.pm>).
 
 =head1 DEVELOPMENT
 
@@ -190,7 +198,7 @@ make sure all tests pass under C<minil test>
 
 =item *
 
-update the C<Changes> file
+add brief descriptions to the C<Changes> file, under the C<{{$NEXT}}> line.
 
 =item *
 
@@ -220,11 +228,10 @@ L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=vars-i> for older bugs.
 
 =head1 LICENSE
 
-Copyright (c) 2003 by D.H. aka PodMaster.  Portions copyright (c) 2019 by Chris
-White.  All rights reserved.
+Copyright (c) 2003--2019 by D.H. aka PodMaster, and contributors.
+All rights reserved.
 
 This module is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself. If you don't know what this means,
-visit http://perl.com/ or http://cpan.org/.
+under the same terms as Perl itself.
 
 =cut

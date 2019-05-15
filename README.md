@@ -66,6 +66,14 @@ However, you may if you wish.
 
 - Specifying a variable but not a value will succeed silently, and will **not**
 create the variable.  E.g., `use vars::i '$foo';` is a no-op.
+
+    Now, you might expect that `use vars::i '$foo';` would behave the same
+    way as `use vars '$foo';`.  That would not be an unreasonable expectation.
+    However, `use vars::i qw($foo $bar);` has a very different
+    effect than does `use vars qw($foo $bar);`!  In order to avoid
+    subtle errors in the two-parameter case, `vars::i` also rejects the
+    one-parameter case.
+
 - Trying to create a special variable is fatal.  E.g., `use vars::i '$@', 1;`
 will die at compile time.
 
@@ -76,7 +84,8 @@ See [vars](https://metacpan.org/pod/vars), ["our" in perldoc](https://metacpan.o
 # MINIMUM PERL VERSION
 
 This version supports Perl 5.6+.  If you are running an earlier Perl,
-use version 1.01 of this module (PODMASTER/vars-i-1.01).
+use version 1.01 of this module
+([PODMASTER/vars-i-1.01](https://metacpan.org/pod/release/PODMASTER/vars-i-1.01/lib/vars/i.pm)).
 
 # DEVELOPMENT
 
@@ -85,7 +94,7 @@ can use normal `prove -l` for testing based on the files in `lib/`.  Before
 submitting a pull request, please:
 
 - make sure all tests pass under `minil test`
-- update the `Changes` file
+- add brief descriptions to the `Changes` file, under the `{{$NEXT}}` line.
 - update the `.mailmap` file to list your PAUSE user ID if you have one, and
 if your git commits are not under your `@cpan.org` email.  That way you will
 be properly listed as a contributor in MetaCPAN.
@@ -110,9 +119,8 @@ You can also see the old bugtracker at
 
 # LICENSE
 
-Copyright (c) 2003 by D.H. aka PodMaster.  Portions copyright (c) 2019 by Chris
-White.  All rights reserved.
+Copyright (c) 2003--2019 by D.H. aka PodMaster, and contributors.
+All rights reserved.
 
 This module is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself. If you don't know what this means,
-visit http://perl.com/ or http://cpan.org/.
+under the same terms as Perl itself.
