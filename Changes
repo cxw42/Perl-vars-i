@@ -1,7 +1,10 @@
 Revision history for Perl distribution vars-i
 
 {{$NEXT}}
+
+1.07 2019-05-22T01:30:08Z
     - Updated documentation
+    - Production release
 
 1.06 2019-05-15T14:05:21Z (TRIAL RELEASE)
     - Fixed metadata
