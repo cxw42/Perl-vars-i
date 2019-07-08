@@ -62,7 +62,7 @@ BEGIN {     # so that we are testing compile-time effects
     ok(eval q[use strict; no warnings 'all'; %HASH; 1],
                 q[use vars::i '%HASH' => { answer=>42 }]);
     cmp_ok(keys %HASH, '==', 1, q[%HASH size]);
-    is(%HASH{answer}, 'forty-two', q[%HASH properly filled]);
+    is($HASH{answer}, 'forty-two', q[%HASH properly filled]);
 
     ok(eval q[use strict; no warnings 'all'; @ARR; 1],
                 q[use vars::i '@ARR' => [1337, qw(Mike Oldfield)]]);
@@ -74,7 +74,7 @@ BEGIN {     # so that we are testing compile-time effects
     ok(eval q[use strict; no warnings 'all'; %HASH2; 1],
                 q[use vars::i '%HASH2' => { answer=>42 }]);
     cmp_ok(keys %HASH2, '==', 1, q[%HASH2 size]);
-    is(%HASH2{answer}, 'forty-two', q[%HASH2 properly filled]);
+    is($HASH2{answer}, 'forty-two', q[%HASH2 properly filled]);
 
     ok(eval q[use strict; no warnings 'all'; @ARR2; 1],
                 q[use vars::i '@ARR2' => [1337, qw(Mike Oldfield)]]);
