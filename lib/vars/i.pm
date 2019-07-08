@@ -1,7 +1,7 @@
 package vars::i;
 use 5.006;
 
-our $VERSION = '1.07'; # TRIAL
+our $VERSION = '1.08'; # TRIAL
 
 use strict qw(vars subs);
 use warnings;
