@@ -1,6 +1,8 @@
 Revision history for Perl distribution vars-i
 
 {{$NEXT}}
+    - Support `use vars '%x' => <hashref>` (#2)
+    - Support `use vars '@x' => <arrayref>`
 
 1.07 2019-05-22T01:30:08Z
     - Updated documentation
