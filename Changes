@@ -2,6 +2,9 @@ Revision history for Perl distribution vars-i
 
 {{$NEXT}}
 
+1.10 2019-07-09T22:03:31Z
+    - Production release
+
 1.09 2019-07-08T14:47:55Z (TRIAL RELEASE)
     - Fixed typo in test files
 
