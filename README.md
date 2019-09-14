@@ -1,4 +1,4 @@
-[![MetaCPAN Release](https://badge.fury.io/pl/vars-i.svg)](https://metacpan.org/release/vars-i)
+[![MetaCPAN Release](https://badge.fury.io/pl/vars-i.svg)](https://metacpan.org/release/vars-i) [![Build Status](https://travis-ci.org/cxw42/Perl-vars-i.svg?branch=master)](https://travis-ci.org/cxw42/Perl-vars-i)
 # NAME
 
 vars::i - Perl pragma to declare and simultaneously initialize global variables.
