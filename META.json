@@ -48,12 +48,14 @@
       "runtime" : {
          "requires" : {
             "Carp" : "0",
-            "perl" : "5.006"
+            "perl" : "5.006001"
          }
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0"
+            "Import::Into" : "1.002005",
+            "Test::More" : "0",
+            "lib::relative" : "1.000"
          }
       }
    },
@@ -69,7 +71,7 @@
          "web" : "https://github.com/cxw42/Perl-vars-i"
       }
    },
-   "version" : "1.10",
+   "version" : "1.900000",
    "x_contributors" : [
       "Christopher White <cxw@cpan.org>"
    ],
