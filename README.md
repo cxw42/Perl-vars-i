@@ -83,9 +83,17 @@ See [vars](https://metacpan.org/pod/vars), ["our" in perldoc](https://metacpan.o
 
 # MINIMUM PERL VERSION
 
-This version supports Perl 5.6+.  If you are running an earlier Perl,
-use version 1.01 of this module
-([PODMASTER/vars-i-1.01](https://metacpan.org/pod/release/PODMASTER/vars-i-1.01/lib/vars/i.pm)).
+This version supports Perl 5.6.1+.  If you are running an earlier Perl:
+
+- Perl 5.6:
+
+    Use version 1.10 of this module
+    ([CXW/vars-i-1.10](https://metacpan.org/pod/release/CXW/vars-i-1.10/lib/vars/i.pm)).
+
+- Pre-5.6:
+
+    Use version 1.01 of this module
+    ([PODMASTER/vars-i-1.01](https://metacpan.org/pod/release/PODMASTER/vars-i-1.01/lib/vars/i.pm)).
 
 # DEVELOPMENT
 

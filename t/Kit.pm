@@ -79,4 +79,6 @@ sub import {
     my $target = caller;
     __PACKAGE__->export_to_level(1, @_);
     Test::More->import::into($target);
+    STDOUT->autoflush(1);
+    STDERR->autoflush(1);
 }

@@ -16,18 +16,20 @@ sub import {
     if( not @value ){
         if( ref $var eq 'ARRAY' ){  # E.g., use vars [ foo=>, bar=>... ];
             %definitions = @$var;
-        } elsif( ref $var eq 'ARRAY' ){  # E.g., use vars { foo=>, bar=>... };
-            %definitions = @$var;
-        } else {
+        }
+        elsif( ref $var eq 'HASH' ){  # E.g., use vars { foo=>, bar=>... };
+            %definitions = %$var;
+        }
+        else {
             return;     # No value given --- no-op; not an error.
         }
-    } elsif(@value == 1 && ref $value[0]) {     # E.g., use vars foo=>{}
+    }
+    elsif(@value == 1 && ref $value[0]) {     # E.g., use vars foo=>{}
         %definitions = ( $var => $value[0] );
-    } else {
+    }
+    else {
         %definitions = ( $var => [@value] );
     }
-    require Data::Dumper;   # DEBUG XXX
-    print Data::Dumper->Dump([\%definitions], ['definitions']);
 
     for my $k( keys %definitions ){
         $var = $k;
@@ -42,8 +44,12 @@ sub import {
         }
 
 
-        if( my( $ch, $sym ) = $var =~ /^([\$\@\%\*\&])(.+)$/ ){
-            if( $sym !~ /^(\w+(::|'))+\w+$/ && $sym =~ /\W|(^\d+$)/ ){
+        if( my( $ch, $sym ) = $var =~ /^([-\$\@\%\*\&])(.+)$/ ){
+            if( $ch eq '-' ){   # An option
+                require Carp;
+                Carp::croak('vars::i does not yet support any options!');
+            }
+            elsif( $sym !~ /^(\w+(::|'))+\w+$/ && $sym =~ /\W|(^\d+$)/ ){
                 #    ^^ Skip fully-qualified names  ^^ Check special names
 
                 # A variable name we can't or won't handle
@@ -64,7 +70,7 @@ sub import {
 
             if( $ch eq '$' ){
                 *{$sym} = \$$sym;
-                (${$sym}) = @value; # XXX TODO die if @value!=1
+                (${$sym}) = @value;
             }
             elsif( $ch eq '@' ){
                 *{$sym} = \@$sym;
@@ -72,14 +78,14 @@ sub import {
             }
             elsif( $ch eq '%' ){
                 *{$sym} = \%$sym;
-                (%{$sym}) = @value; # TODO die if @value%2
+                (%{$sym}) = @value;
             }
             elsif( $ch eq '*' ){
                 *{$sym} = \*$sym;
-                (*{$sym}) = shift @value;   # TODO die if @value!=1
+                (*{$sym}) = shift @value;
             }
             else {   # $ch eq '&'; guaranteed by the regex above.
-                *{$sym} = shift @value; # TODO die if @value!=1
+                *{$sym} = shift @value;
             }
             # There is no else, because the regex above guarantees
             # that $ch has one of the values we tested.
@@ -87,7 +93,7 @@ sub import {
         }
         else {    # Name didn't match the regex above
             require Carp;
-            Carp::croak("'$var' is not a valid variable name");
+            Carp::croak("'$var' is not a valid variable or option name");
         }
     }
 };
@@ -200,6 +206,8 @@ Use version 1.10 of this module
 
 Use version 1.01 of this module
 (L<PODMASTER/vars-i-1.01|https://metacpan.org/pod/release/PODMASTER/vars-i-1.01/lib/vars/i.pm>).
+
+=back
 
 =head1 DEVELOPMENT
 

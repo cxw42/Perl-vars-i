@@ -22,6 +22,7 @@ my %WriteMakefileArgs = (
 }
 ,
     TEST_REQUIRES      => {
+  "IO::Handle" => 0,
   "Import::Into" => "1.002005",
   "Test::More" => 0,
   "lib::relative" => "1.000"
