@@ -8,39 +8,41 @@ use warnings;
 
 sub import {
     return if @_ < 2;
-    my( $pack, $var, @value ) = @_;
+    my( $pack, $first_var, @value ) = @_;
     my $callpack = caller;
 
     my %definitions;
 
     if( not @value ){
-        if( ref $var eq 'ARRAY' ){  # E.g., use vars [ foo=>, bar=>... ];
-            %definitions = @$var;
+        if( ref $first_var eq 'ARRAY' ){  # E.g., use vars [ foo=>, bar=>... ];
+            %definitions = @$first_var;
         }
-        elsif( ref $var eq 'HASH' ){  # E.g., use vars { foo=>, bar=>... };
-            %definitions = %$var;
+        elsif( ref $first_var eq 'HASH' ){  # E.g., use vars { foo=>, bar=>... };
+            %definitions = %$first_var;
         }
         else {
             return;     # No value given --- no-op; not an error.
         }
     }
     elsif(@value == 1 && ref $value[0]) {     # E.g., use vars foo=>{}
-        %definitions = ( $var => $value[0] );
+        %definitions = ( $first_var => $value[0] );
     }
     else {
-        %definitions = ( $var => [@value] );
+        %definitions = ( $first_var => [@value] );
     }
 
-    for my $k( keys %definitions ){
-        $var = $k;
-        if( ref $definitions{$k} eq 'ARRAY' ){
-            @value = @{ $definitions{$k} };
+    require Data::Dumper;   # DEBUG XXX
+    print Data::Dumper->Dump([\%definitions], ['definitions']);
+
+    for my $var ( keys %definitions ){
+        if( ref $definitions{$var} eq 'ARRAY' ){
+            @value = @{ $definitions{$var} };
         }
-        elsif( ref $definitions{$k} eq 'HASH' ){
-            @value = %{ $definitions{$k} };
+        elsif( ref $definitions{$var} eq 'HASH' ){
+            @value = %{ $definitions{$var} };
         }
         else {
-            @value = $definitions{$k};
+            @value = $definitions{$var};
         }
 
 
@@ -70,7 +72,7 @@ sub import {
 
             if( $ch eq '$' ){
                 *{$sym} = \$$sym;
-                (${$sym}) = @value;
+                (${$sym}) = @value; # TODO? die if @value!=1
             }
             elsif( $ch eq '@' ){
                 *{$sym} = \@$sym;
@@ -78,14 +80,14 @@ sub import {
             }
             elsif( $ch eq '%' ){
                 *{$sym} = \%$sym;
-                (%{$sym}) = @value;
+                (%{$sym}) = @value; # TODO die if @value%2
             }
             elsif( $ch eq '*' ){
                 *{$sym} = \*$sym;
-                (*{$sym}) = shift @value;
+                (*{$sym}) = shift @value;   # TODO? die if @value!=1
             }
             else {   # $ch eq '&'; guaranteed by the regex above.
-                *{$sym} = shift @value;
+                *{$sym} = shift @value; # TODO? die if @value!=1
             }
             # There is no else, because the regex above guarantees
             # that $ch has one of the values we tested.

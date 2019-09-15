@@ -9,7 +9,7 @@ use Test::More;
 use parent 'Exporter';
 
 our @EXPORT;
-BEGIN { @EXPORT=qw(eval_dies_ok eval_dies_like eval_is); }
+BEGIN { @EXPORT=qw(eval_dies_ok eval_lives_ok eval_dies_like eval_is_var); }
 
 =head1 NAME
 
@@ -35,6 +35,19 @@ sub eval_dies_ok {
     ok($@, $_[1] || ('Died as expected: ' . $_[0]));
 }
 
+=head2 eval_lives_ok
+
+    eval_lives_ok "Code string" [, "message"];
+
+Runs the code string; tests that the code did not throw an exception.
+
+=cut
+
+sub eval_lives_ok {
+    eval $_[0];
+    is($@, '', $_[1] || ('Lived as expected: ' . $_[0]));
+}
+
 =head2 eval_dies_like
 
     eval_dies_like "Code string", qr/regex/ [, "message"];
@@ -48,15 +61,15 @@ sub eval_dies_like {
     like($@, $_[1], $_[2] || ('Died with exception matching ' . $_[1]));
 }
 
-=head2 eval_is
+=head2 eval_is_var
 
-    eval_is '$Package::var', value [, "message"];
+    eval_is_var '$Package::var', value [, "message"];
 
 Tests that C<$Package::var> exists, and that C<$Package::var eq value>.
 
 =cut
 
-sub eval_is {
+sub eval_is_var {
     my ($varname, $expected, $msg) = @_;
     $msg ||= "$varname eq $expected";
     my ($sigil, $package, $basename) = ($varname =~ m/^(.)(.+)::([^:]+)$/);
