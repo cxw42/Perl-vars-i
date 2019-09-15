@@ -1,7 +1,7 @@
 package vars::i;
-use 5.006;
+use 5.006001;
 
-our $VERSION = '1.10'; # TRIAL
+our $VERSION = '1.900000';  # Prerelease leading to v2.0.0
 
 use strict qw(vars subs);
 use warnings;
@@ -14,7 +14,9 @@ sub import {
     my %definitions;
 
     if( not @value ){
-        if( ref $var ){     # E.g., use vars [ foo=>, bar=>... ];
+        if( ref $var eq 'ARRAY' ){  # E.g., use vars [ foo=>, bar=>... ];
+            %definitions = @$var;
+        } elsif( ref $var eq 'ARRAY' ){  # E.g., use vars { foo=>, bar=>... };
             %definitions = @$var;
         } else {
             return;     # No value given --- no-op; not an error.
@@ -24,6 +26,8 @@ sub import {
     } else {
         %definitions = ( $var => [@value] );
     }
+    require Data::Dumper;   # DEBUG XXX
+    print Data::Dumper->Dump([\%definitions], ['definitions']);
 
     for my $k( keys %definitions ){
         $var = $k;
@@ -60,7 +64,7 @@ sub import {
 
             if( $ch eq '$' ){
                 *{$sym} = \$$sym;
-                (${$sym}) = @value;
+                (${$sym}) = @value; # XXX TODO die if @value!=1
             }
             elsif( $ch eq '@' ){
                 *{$sym} = \@$sym;
@@ -68,19 +72,20 @@ sub import {
             }
             elsif( $ch eq '%' ){
                 *{$sym} = \%$sym;
-                (%{$sym}) = @value;
+                (%{$sym}) = @value; # TODO die if @value%2
             }
             elsif( $ch eq '*' ){
                 *{$sym} = \*$sym;
-                (*{$sym}) = shift @value;
+                (*{$sym}) = shift @value;   # TODO die if @value!=1
             }
             else {   # $ch eq '&'; guaranteed by the regex above.
-                *{$sym} = shift @value;
+                *{$sym} = shift @value; # TODO die if @value!=1
             }
             # There is no else, because the regex above guarantees
             # that $ch has one of the values we tested.
 
-        } else {    # Name didn't match the regex above
+        }
+        else {    # Name didn't match the regex above
             require Carp;
             Carp::croak("'$var' is not a valid variable name");
         }
@@ -182,8 +187,18 @@ See L<vars>, L<perldoc/"our">, L<perlmodlib/Pragmatic Modules>.
 
 =head1 MINIMUM PERL VERSION
 
-This version supports Perl 5.6+.  If you are running an earlier Perl,
-use version 1.01 of this module
+This version supports Perl 5.6.1+.  If you are running an earlier Perl:
+
+=over
+
+=item Perl 5.6:
+
+Use version 1.10 of this module
+(L<CXW/vars-i-1.10|https://metacpan.org/pod/release/CXW/vars-i-1.10/lib/vars/i.pm>).
+
+=item Pre-5.6:
+
+Use version 1.01 of this module
 (L<PODMASTER/vars-i-1.01|https://metacpan.org/pod/release/PODMASTER/vars-i-1.01/lib/vars/i.pm>).
 
 =head1 DEVELOPMENT
