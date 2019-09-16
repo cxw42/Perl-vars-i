@@ -6,6 +6,19 @@ our $VERSION = '1.900000';  # Prerelease leading to v2.0.0
 use strict qw(vars subs);
 use warnings;
 
+# Turn a scalar, arrayref, or hashref into a list
+sub _unpack {
+    if( ref $_[0] eq 'ARRAY' ){
+        return @{$_[0]};
+    }
+    elsif( ref $_[0] eq 'HASH' ){
+        return %{$_[0]};
+    }
+    else {
+        return ($_[0]);
+    }
+} #_unpack
+
 sub import {
     return if @_ < 2;
     my( $pack, $first_var, @value ) = @_;
@@ -24,27 +37,17 @@ sub import {
             return;     # No value given --- no-op; not an error.
         }
     }
-    elsif(@value == 1 && ref $value[0]) {     # E.g., use vars foo=>{}
+    elsif(@value == 1) {        # E.g., use vars foo => <str/hashref/arrayref>
         %definitions = ( $first_var => $value[0] );
     }
     else {
         %definitions = ( $first_var => [@value] );
     }
 
-    require Data::Dumper;   # DEBUG XXX
-    print Data::Dumper->Dump([\%definitions], ['definitions']);
+    #require Data::Dumper;   # For debugging
+    #print Data::Dumper->Dump([\%definitions], ['definitions']);
 
-    for my $var ( keys %definitions ){
-        if( ref $definitions{$var} eq 'ARRAY' ){
-            @value = @{ $definitions{$var} };
-        }
-        elsif( ref $definitions{$var} eq 'HASH' ){
-            @value = %{ $definitions{$var} };
-        }
-        else {
-            @value = $definitions{$var};
-        }
-
+    while( my ($var, $val) = each %definitions ){
 
         if( my( $ch, $sym ) = $var =~ /^([-\$\@\%\*\&])(.+)$/ ){
             if( $ch eq '-' ){   # An option
@@ -72,22 +75,35 @@ sub import {
 
             if( $ch eq '$' ){
                 *{$sym} = \$$sym;
-                (${$sym}) = @value; # TODO? die if @value!=1
+                ${$sym} = $val;
             }
             elsif( $ch eq '@' ){
                 *{$sym} = \@$sym;
-                (@{$sym}) = @value;
+                @{$sym} = _unpack $val;
             }
             elsif( $ch eq '%' ){
                 *{$sym} = \%$sym;
-                (%{$sym}) = @value; # TODO die if @value%2
+                %{$sym} = _unpack $val;
             }
             elsif( $ch eq '*' ){
                 *{$sym} = \*$sym;
-                (*{$sym}) = shift @value;   # TODO? die if @value!=1
+                (*{$sym}) = $val;
             }
             else {   # $ch eq '&'; guaranteed by the regex above.
-                *{$sym} = shift @value; # TODO? die if @value!=1
+                my ($param) = $val;
+                if(ref $param) {
+                    # NOTE: for now, permit any ref, since we can't determine
+                    # refs overload &{}.  If necessary, we can later use
+                    # Scalar::Util 1.25+'s blessed(), and allow CODE refs
+                    # or blessed refs.
+                    *{$sym} = $param;
+                }
+                else {
+                    require Carp;
+                    Carp::croak("Can't assign non-reference " .
+                        (defined($param) ? $param : '<undef>') .
+                        " to $sym");
+                }
             }
             # There is no else, because the regex above guarantees
             # that $ch has one of the values we tested.
@@ -98,7 +114,7 @@ sub import {
             Carp::croak("'$var' is not a valid variable or option name");
         }
     }
-};
+} #import()
 
 1;
 __END__

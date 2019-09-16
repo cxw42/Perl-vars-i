@@ -30,11 +30,14 @@ eval and C<use strict>.
     eval_dies_ok "Code string" [, "message"];
 
 Runs the code string; tests that the code died.
+Any exception will be reported at the same line in the caller as the
+C<eval_dies_ok> invocation.
 
 =cut
 
 sub eval_dies_ok {
-    eval $_[0];
+    my (undef, $filename, $line) = caller;
+    eval line_mark_string($filename, $line-1, $_[0]);
     ok($@, $_[1] || ('Died as expected: ' . $_[0]));
 }
 

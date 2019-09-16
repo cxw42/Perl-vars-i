@@ -88,7 +88,7 @@ sub test_arrayref_in_scalar {
             \$MY::TestARInScalar::one->[$_]
         ];
         is $@, '', "...one->[$_] access";
-        cmp_ok $val, '==', $_+1, "\$MY::TestARInScalar::one->[$_]";
+        cmp_ok $val, '==', $_+7, "\$MY::TestARInScalar::one->[$_]";
     }
 
 } #test_arrayref_in_scalar
