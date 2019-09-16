@@ -76,6 +76,10 @@ create the variable.  E.g., `use vars::i '$foo';` is a no-op.
 
 - Trying to create a special variable is fatal.  E.g., `use vars::i '$@', 1;`
 will die at compile time.
+- The sigil is taken into account (context sensitivity!)  So:
+
+        use vars::i '$foo' => [1,2,3];  # now $foo is an arrayref
+        use vars::i '@bar' => [1,2,3];  # now @bar is a three-element list
 
 # SEE ALSO
 

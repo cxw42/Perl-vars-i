@@ -22,15 +22,19 @@ my %WriteMakefileArgs = (
 }
 ,
     TEST_REQUIRES      => {
-  "IO::Handle" => 0,
+  "Exporter" => 0,
   "Import::Into" => "1.002005",
   "Test::More" => 0,
-  "lib::relative" => "1.000"
+  "lib::relative" => "1.000",
+  "parent" => 0
 }
 ,
     PREREQ_PM          => {
   "Carp" => 0,
-  "perl" => "5.006001"
+  "Data::Dumper" => 0,
+  "perl" => "5.006001",
+  "strict" => 0,
+  "warnings" => 0
 }
 ,
 );

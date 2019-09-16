@@ -203,6 +203,13 @@ one-parameter case.
 Trying to create a special variable is fatal.  E.g., C<use vars::i '$@', 1;>
 will die at compile time.
 
+=item *
+
+The sigil is taken into account (context sensitivity!)  So:
+
+    use vars::i '$foo' => [1,2,3];  # now $foo is an arrayref
+    use vars::i '@bar' => [1,2,3];  # now @bar is a three-element list
+
 =back
 
 =head1 SEE ALSO

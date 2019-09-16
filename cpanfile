@@ -12,7 +12,6 @@ on build => sub {
 on test => sub {
     requires 'Exporter';
     requires 'Import::Into', '1.002005';
-    requires 'IO::Handle';
     requires 'lib::relative', '1.000';
     requires 'parent';
     requires 'Test::More';
