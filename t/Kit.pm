@@ -6,10 +6,13 @@ use warnings;
 use Import::Into;
 use Test::More;
 
+use Carp qw(croak);
+
 use parent 'Exporter';
 
 our @EXPORT;
-BEGIN { @EXPORT=qw(eval_dies_ok eval_lives_ok eval_dies_like eval_is_var); }
+BEGIN { @EXPORT=qw(eval_dies_ok eval_lives_ok eval_dies_like eval_is_var
+    line_mark_string); }
 
 =head1 NAME
 
@@ -80,6 +83,54 @@ sub eval_is_var {
     is($@, '', "Accessed $varname");
     is($got, $expected, $msg);
 } #eval_var_is
+
+=head2 line_mark_string
+
+Add a C<#line> directive to a string.  Usage:
+
+    my $str = line_mark_string <<EOT ;
+    $contents
+    EOT
+
+or
+
+    my $str = line_mark_string __FILE__, __LINE__, <<EOT ;
+    $contents
+    EOT
+
+In the first form, information from C<caller> will be used for the filename
+and line number.
+
+The C<#line> directive will point to the line after the C<line_mark_string>
+invocation, i.e., the first line of <C$contents>.  Generally, C<$contents> will
+be source code, although this is not required.
+
+C<$contents> must be defined, but can be empty.
+
+=cut
+
+sub line_mark_string {
+    my ($contents, $filename, $line);
+    if(@_ == 1) {
+        $contents = $_[0];
+        (undef, $filename, $line) = caller;
+    } elsif(@_ == 3) {
+        ($filename, $line, $contents) = @_;
+    } else {
+        croak "Invalid invocation";
+    }
+
+    croak "Need text" unless defined $contents;
+    die "Couldn't get location information" unless $filename && $line;
+
+    $filename =~ s/"/-/g;
+    ++$line;
+
+    return <<EOT;
+#line $line "$filename"
+$contents
+EOT
+} #line_mark_string()
 
 =head2 import
 

@@ -16,6 +16,7 @@ test_plain_array();
 
 # Tests of ref-valued scalars
 test_arrayref_in_scalar();
+test_hashref();
 
 done_testing();
 
@@ -91,4 +92,28 @@ sub test_arrayref_in_scalar {
     }
 
 } #test_arrayref_in_scalar
+
+sub test_hashref {
+    eval_lives_ok line_mark_string(
+    q[{
+        package MY::TestHashRef;
+        use vars::i '$one' => {a=>1, b=>2};
+    }]), '$=>hashref';
+    my $val = eval line_mark_string(
+        q[use strict; no warnings 'all';
+            scalar keys %{$MY::TestHashRef::one}]);
+    is $@, '', '%one access';
+    cmp_ok $val, '==', 2, 'scalar keys %one';
+
+    my %expect = (a=>1, b=>2);
+    while(my ($k, $v) = each %expect) {
+        my $val = eval line_mark_string(
+            qq[use strict; no warnings 'all';
+            \$MY::TestHashRef::one->{'$k'}
+        ]);
+        is $@, '', "...one->{$k} access";
+        cmp_ok $val, '==', $v, "MY::TestHashRef::one->{$k}";
+    }
+
+} #test_hashref
 
