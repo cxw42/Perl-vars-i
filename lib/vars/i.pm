@@ -1,7 +1,7 @@
 package vars::i;
 use 5.006001;
 
-our $VERSION = '1.900000';  # Prerelease leading to v2.0.0
+our $VERSION = '2.000000';  # Prerelease leading to v2.0.0
 
 use strict qw(vars subs);
 use warnings;

@@ -2,6 +2,12 @@ Revision history for Perl distribution vars-i
 
 {{$NEXT}}
 
+2.000000 2019-09-18T01:21:48Z
+
+    - Added a few more tests
+    - Production release of 1.900000
+    - Switch to Semantic Versioning
+
 1.900000 2019-09-16T02:26:52Z (TRIAL RELEASE)
 
     - **Versioning change**: Prepare for switch to semantic
