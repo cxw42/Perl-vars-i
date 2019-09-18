@@ -25,4 +25,8 @@ eval_dies_ok q[ use vars::i '${^Foo}' => 1; ];
 eval_dies_ok q[ use vars::i '$1337!' => 1; ];
 eval_dies_ok q[ use vars::i '$some random thing' => 1; ];
 
+# Incorrect value
+eval_dies_ok q[ use vars::i '&func' => 'non-reference' ];
+eval_dies_ok q[ use vars::i '&func' => undef ];
+
 done_testing();
