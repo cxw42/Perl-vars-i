@@ -216,7 +216,11 @@ The sigil is taken into account (context sensitivity!)  So:
 
 See L<vars>, L<perldoc/"our">, L<perlmodlib/Pragmatic Modules>.
 
-=head1 MINIMUM PERL VERSION
+=head1 VERSIONING
+
+Since version 1.900000, this module is numbered using
+L<Semantic Versioning 2.0.0|https://semver.org>,
+packed in the compatibility format of C<< vX.Y.Z -> X.00Y00Z >>.
 
 This version supports Perl 5.6.1+.  If you are running an earlier Perl:
 

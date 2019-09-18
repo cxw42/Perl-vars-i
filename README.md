@@ -85,7 +85,11 @@ will die at compile time.
 
 See [vars](https://metacpan.org/pod/vars), ["our" in perldoc](https://metacpan.org/pod/perldoc#our), ["Pragmatic Modules" in perlmodlib](https://metacpan.org/pod/perlmodlib#Pragmatic-Modules).
 
-# MINIMUM PERL VERSION
+# VERSIONING
+
+Since version 1.900000, this module is numbered using
+[Semantic Versioning 2.0.0](https://semver.org),
+packed in the compatibility format of `vX.Y.Z -> X.00Y00Z`.
 
 This version supports Perl 5.6.1+.  If you are running an earlier Perl:
 
